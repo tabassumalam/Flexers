@@ -4,7 +4,7 @@ export default class Flexers extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            angle: 265,
+            angle: 260,
             time: 0,
         }
 
@@ -42,7 +42,7 @@ export default class Flexers extends Component {
                 <h2 style = {this.getStyleBody()}>
                     your current angle: {this.state.angle} degrees 
                     <br></br>
-                    time at current angle:  {Math.round(this.state.time/60)} minutes and {this.state.time % 60} seconds
+                    time at current angle:  {(this.state.time)} seconds
                 </h2>
 
             </div>
