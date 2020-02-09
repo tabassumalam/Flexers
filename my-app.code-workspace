@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"uri": "vscode-remote://dev-container+2f55736572732f746162617373756d616c616d2f435345313030504131/Code/cse100_pa1"
+		},
+		{
+			"uri": "vscode-remote://dev-container+2f55736572732f746162617373756d616c616d2f435345313030504131/Code"
+		}
+	],
+	"remoteAuthority": "dev-container+2f55736572732f746162617373756d616c616d2f435345313030504131",
+	"settings": {
+		"gitlens.blame.compact": false,
+		"files.associations": {
+			"iostream": "cpp",
+			"limits": "cpp"
+		}
+	}
+}
