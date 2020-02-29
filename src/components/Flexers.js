@@ -5,7 +5,7 @@ export default class Flexers extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            angle: 0,
+            angle: 80,
             time: 0,
         }
     };
@@ -40,8 +40,9 @@ export default class Flexers extends Component {
 
     render() {
         return (
+            
             <div>
-                <Websocket url='http://localhost:8088/scale12345/'
+                <Websocket url='ws://localhost:8088/scale'
                     onMessage={this.setAngle.bind(this)} />
                 <h1 style={this.getStyleTitle()}> FLEXERS </h1>
                 <h2 style={this.getStyleBody()}>
