@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Websocket from 'react-websocket';
+import socketIOClient from "socket.io-client";
 
 export default class Flexers extends Component {
     constructor(props) {
@@ -8,30 +8,35 @@ export default class Flexers extends Component {
             angle: 0,
             time: 0,
         }
+
+        this.setTime();
     };
 
-    setAngle(angle) { // might have to parse data being read in 
-        this.setState({ angle }) // angle = new data read in , time = 0
-        //this.setTime()  // starts counting time from 0
+    componentDidMount() {
+        const socket = socketIOClient('http://localhost:8088');
+        socket.on("Global Weight", data => {
+            this.setAngle(data);
+        });
+    }
+
+    setAngle(angle) {
+        if (angle > this.state.angle + 10 || angle < this.state.angle - 10) {
+            this.resetTime();
+        }
+
+        this.setState({ angle: Math.round(angle) });
+    }
+
+    resetTime() {
+        this.setState({ time: 0 });
     }
 
     setTime() {
-        setInterval(() => 
-            
-            this.setState({ time: this.state.time + 1}), 1000);
-        
+        setInterval(() => {
+            this.setState({ time: this.state.time + 1 })
+        }, 1000);
     }
 
-    //useEffect(() => {
-     //   getAngle();
-    //}, []
-    //)
-    
-    getAngle = async () => {
-        const response = await fetch("http://localhost:8088/scale");
-        const data = await response.json();
-        this.setAngle(data.msg);
-    }
     getStyleTitle = () => {
         return {
             backgroundColor: "#add8e6",
@@ -52,16 +57,12 @@ export default class Flexers extends Component {
 
     render() {
         return (
-            
             <div>
-                <Websocket url='ws://localhost:8088/scale'
-                    onMessage={this.setAngle.bind(this)}
-                    onMessage= {this.setTime()} />
                 <h1 style={this.getStyleTitle()}> FLEXERS </h1>
                 <h2 style={this.getStyleBody()}>
-                    your current angle: {this.state.angle} degrees
+                    Your current angle: {this.state.angle} degrees
                     <br></br>
-                    time at current angle:  {(this.state.time )} seconds
+                    Time at current angle:  {(this.state.time)} seconds
                 </h2>
 
             </div>
